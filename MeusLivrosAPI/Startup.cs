@@ -1,3 +1,5 @@
+using MeusLivrosAPI.Data;
+using MeusLivrosAPI.Data.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,14 +13,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
+
 
 namespace MeusLivrosAPI
 {
     public class Startup
     {
+        //Francisco
+        public string ConnectionString { get; set; }
+
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            //Francisco
+            ConnectionString = Configuration.GetConnectionString("DefaultConnectionString");
         }
 
         public IConfiguration Configuration { get; }
@@ -28,9 +40,21 @@ namespace MeusLivrosAPI
         {
 
             services.AddControllers();
+
+            //Francisco - Configure DBContext With SQL
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(ConnectionString));
+
+            //Francisco - Configure ServicesL
+            services.AddTransient<LivrosService>();
+            services.AddTransient<AutorsService>();
+            services.AddTransient<PublicarService>();
+
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MeusLivrosAPI", Version = "v1" });
+                //c.SwaggerDoc("v1", new OpenApiInfo { Title = "MeusLivrosAPI", Version = "v1" });
+                //c.SwaggerDoc("v2", new OpenApiInfo { Title = "MeusLivrosAPI-Titulos", Version = "v2" });
+                c.SwaggerDoc("v2", new OpenApiInfo { Title = " API MeusLivros, Get, GetList, Post, Put-Update Delete", Version = "v2" });
+
             });
         }
 
@@ -41,7 +65,7 @@ namespace MeusLivrosAPI
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MeusLivrosAPI v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v2/swagger.json", "MeusLivrosAPI-UI-Update v1"));
             }
 
             app.UseHttpsRedirection();
@@ -54,6 +78,8 @@ namespace MeusLivrosAPI
             {
                 endpoints.MapControllers();
             });
+
+            //AppDbInitializer.Seed(app);
         }
     }
 }
