@@ -79,7 +79,7 @@ namespace MeusLivrosAPI
                 endpoints.MapControllers();
             });
 
-            //AppDbInitializer.Seed(app);
+            AppDbInitializer.Seed(app);
         }
     }
 }

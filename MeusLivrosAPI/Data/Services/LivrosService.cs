@@ -27,7 +27,7 @@ namespace MeusLivrosAPI.Data.Services
                 DataLeitura = livro.IsRead ? livro.DataLeitura.Value : null,
                 Avaliacao = livro.IsRead ? livro.Avaliacao.Value : null,
                 Genero = livro.Genero,
-                Autor = livro.Autor,
+               // Autor = livro.Autor,
                 CoverUrl = livro.CoverUrl,
                 DataAdicao = DateTime.Now,
                 PublicarId = livro.PublicarId     
@@ -41,25 +41,37 @@ namespace MeusLivrosAPI.Data.Services
             {
                 var _livros_autor = new Livros_Autor()
                 {
-                   //LivrosId = livro.,
-                   LivrosId = livro.PublicarId,
-                    AutorId = id
+                    LivrosId = livro.PublicarId,
+                   AutorId = id
+
                 };
                 _context.Livros_Autors.Add(_livros_autor);
                 _context.SaveChanges();
-
-
             }
-
         }
 
         public List<Livros> GetAllLivros() => _context.Livros.ToList();
+        //public Livros GetLivrosById(int livroId) => _context.Livros.FirstOrDefault(n => n.Id == livroId);
 
-        public Livros GetLivrosById(int livroId) => _context.Livros.FirstOrDefault(n => n.Id == livroId);
+        public LivroWithAutorsFJ GetLivrosById(int livroId)
+        {
+            var _livroWithAutors = _context.Livros.Where(n => n.Id == livroId).Select(livro => new LivroWithAutorsFJ()
+            {
 
+                Titulo = livro.Titulo,
+                Descricao = livro.Descricao,
+                IsRead = livro.IsRead,
+                DataLeitura = livro.IsRead ? livro.DataLeitura.Value : null,
+                Avaliacao = livro.IsRead ? livro.Avaliacao.Value : null,
+                Genero = livro.Genero,
+                CoverUrl = livro.CoverUrl,
+                PublicarNome = livro.Publicar.Nome,
 
+                AutorNomes = livro.Livros_Autors.Select(n => n.Autor.NomeCompleto).ToList()
+            }).FirstOrDefault();
 
-
+            return _livroWithAutors;
+        }
 
 
         public Livros UpdateLivrosById(int livroId, LivroFJ livro)
@@ -73,7 +85,7 @@ namespace MeusLivrosAPI.Data.Services
                 _livro.DataLeitura = livro.IsRead ? livro.DataLeitura.Value : null;
                 _livro.Avaliacao = livro.IsRead ? livro.Avaliacao.Value : null;
                 _livro.Genero = livro.Genero;
-                _livro.Autor = livro.Autor;
+               // _livro.Autor = livro.Autor;
                 _livro.CoverUrl = livro.CoverUrl;
 
                 _context.SaveChanges();

@@ -40,10 +40,10 @@ namespace MeusLivrosAPI.Controllers
         }
 
         // POST: LivrosController
-        [HttpPost("add-livros")]
+        [HttpPost("add-livros-with-autor")]
         public IActionResult AddLivro([FromBody] LivroFJ livro)
         {
-            _livrosService.AddLivros(livro);
+            _livrosService.AddLivrosWithAutors(livro);
             return Ok();
         }
 

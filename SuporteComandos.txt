@@ -71,5 +71,7 @@ Add-Migration InitialDatabaseMigration
 Add-Migration PublicarAdded
 Add-Migration ManyToManyAdded
 
+Add-Migration LivrosAutorColumnRemoved
+
 Update-Database
 

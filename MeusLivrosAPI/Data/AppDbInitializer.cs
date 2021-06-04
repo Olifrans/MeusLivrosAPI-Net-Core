@@ -26,7 +26,7 @@ namespace MeusLivrosAPI.Data
                         DataLeitura = DateTime.Now.AddDays(-10),
                         Avaliacao = 5,
                         Genero = "AlgoritimoCore",
-                        Autor = "Francisco",
+                        //Autor = "Francisco",
                         CoverUrl = "https....",
                         DataAdicao = DateTime.Now
                     },
@@ -38,7 +38,7 @@ namespace MeusLivrosAPI.Data
                         DataLeitura = DateTime.Now.AddDays(-10),
                         Avaliacao = 5,
                         Genero = "Engenharia_Software",
-                        Autor = "Oliveira",
+                        //Autor = "Oliveira",
                         CoverUrl = "https....",
                         DataAdicao = DateTime.Now
                     });
