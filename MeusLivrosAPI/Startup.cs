@@ -65,7 +65,7 @@ namespace MeusLivrosAPI
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v2/swagger.json", "MeusLivrosAPI-UI-Update v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v2/swagger.json", "MeusLivrosAPI-UI-Update v2"));
             }
 
             app.UseHttpsRedirection();

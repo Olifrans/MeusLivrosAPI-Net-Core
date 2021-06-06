@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MeusLivrosAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210604111513_LivrosAutorColumnRemoved")]
-    partial class LivrosAutorColumnRemoved
+    [Migration("20210606150321_InitialDatabaseMigration")]
+    partial class InitialDatabaseMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

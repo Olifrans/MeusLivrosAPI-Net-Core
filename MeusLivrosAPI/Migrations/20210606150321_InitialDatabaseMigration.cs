@@ -8,7 +8,7 @@ namespace MeusLivrosAPI.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Autor",
+                name: "Autors",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -17,11 +17,11 @@ namespace MeusLivrosAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Autor", x => x.Id);
+                    table.PrimaryKey("PK_Autors", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Publicar",
+                name: "Publicars",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -30,7 +30,7 @@ namespace MeusLivrosAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Publicar", x => x.Id);
+                    table.PrimaryKey("PK_Publicars", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -45,24 +45,23 @@ namespace MeusLivrosAPI.Migrations
                     DataLeitura = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Avaliacao = table.Column<int>(type: "int", nullable: true),
                     Genero = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Autor = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CoverUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DataAdicao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PublicarId = table.Column<int>(type: "int", nullable: false)
+                    PublicarId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Livros", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Livros_Publicar_PublicarId",
+                        name: "FK_Livros_Publicars_PublicarId",
                         column: x => x.PublicarId,
-                        principalTable: "Publicar",
+                        principalTable: "Publicars",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Livros_Autor",
+                name: "Livros_Autors",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -72,15 +71,15 @@ namespace MeusLivrosAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Livros_Autor", x => x.Id);
+                    table.PrimaryKey("PK_Livros_Autors", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Livros_Autor_Autor_AutorId",
+                        name: "FK_Livros_Autors_Autors_AutorId",
                         column: x => x.AutorId,
-                        principalTable: "Autor",
+                        principalTable: "Autors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Livros_Autor_Livros_LivrosId",
+                        name: "FK_Livros_Autors_Livros_LivrosId",
                         column: x => x.LivrosId,
                         principalTable: "Livros",
                         principalColumn: "Id",
@@ -93,29 +92,29 @@ namespace MeusLivrosAPI.Migrations
                 column: "PublicarId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Livros_Autor_AutorId",
-                table: "Livros_Autor",
+                name: "IX_Livros_Autors_AutorId",
+                table: "Livros_Autors",
                 column: "AutorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Livros_Autor_LivrosId",
-                table: "Livros_Autor",
+                name: "IX_Livros_Autors_LivrosId",
+                table: "Livros_Autors",
                 column: "LivrosId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Livros_Autor");
+                name: "Livros_Autors");
 
             migrationBuilder.DropTable(
-                name: "Autor");
+                name: "Autors");
 
             migrationBuilder.DropTable(
                 name: "Livros");
 
             migrationBuilder.DropTable(
-                name: "Publicar");
+                name: "Publicars");
         }
     }
 }
