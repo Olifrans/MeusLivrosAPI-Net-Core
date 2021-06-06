@@ -21,8 +21,6 @@ namespace MeusLivrosAPI.Data.Models
 
         public string Genero { get; set; }
 
-       // public string Autor { get; set; }
-
         public string CoverUrl { get; set; }
 
         public DateTime DataAdicao { get; set; }
@@ -31,7 +29,6 @@ namespace MeusLivrosAPI.Data.Models
         public int? PublicarId { get; set; }
 
         public Publicar Publicar { get; set; }
-
         public List<Livros_Autor> Livros_Autors { get; set; }
     }
 }

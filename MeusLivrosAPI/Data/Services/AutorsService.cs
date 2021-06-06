@@ -24,5 +24,16 @@ namespace MeusLivrosAPI.Data.Services
             _context.Autors.Add(_autor);
             _context.SaveChanges();
         }
+
+
+        public AutorWithLivrosFJ GetAutorWithLivros(int autorId)
+        {
+            var _autor = _context.Autors.Where(n => n.Id == autorId).Select(n => new AutorWithLivrosFJ()
+            {
+                NomeCompleto = n.NomeCompleto,
+                LivrosTitulos = n.Livros_Autors.Select(n => n.Livros.Titulo).ToList()
+            }).FirstOrDefault();
+            return _autor;
+        }
     }
 }

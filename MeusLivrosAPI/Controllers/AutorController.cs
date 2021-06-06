@@ -20,12 +20,21 @@ namespace MeusLivrosAPI.Controllers
             _autorsService = autorsService;
         }
 
-        // POST: LivrosController
+        //Post: AutorController
         [HttpPost("add-autor")]
         public IActionResult AddLivros([FromBody] AutorFJ autor)
         {
             _autorsService.AddAutor(autor);
             return Ok();
+        }
+
+
+        //Get: AutorController
+        [HttpGet("get-autor-with-livros-by-id/{id}")]
+        public IActionResult GetAutorWithLivros(int id)
+        {
+            var response = _autorsService.GetAutorWithLivros(id);
+            return Ok(response);
         }
     }
 }

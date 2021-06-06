@@ -20,11 +20,28 @@ namespace MeusLivrosAPI.Controllers
             _publicarService = publicarService;
         }
 
-        // POST: LivrosController
+        //Post: PublicarController
         [HttpPost("add-publicar")]
         public IActionResult AddLivros([FromBody] PublicarFJ publicar)
         {
             _publicarService.AddPublicar(publicar);
+            return Ok();
+        }
+
+        //Get: PublicarController
+        [HttpGet("get-publicar-livros-with-autor{id}")]
+        public IActionResult GetPublicarData(int id)
+        {
+            var _response = _publicarService.GetPublicarData(id);
+            return Ok(_response);
+        }
+
+
+        //Delete: PublicarController
+        [HttpDelete("delete-publicar-by-id")]
+        public IActionResult DeletePublicarById(int id)
+        {
+            _publicarService.DeletePublicarById(id);
             return Ok();
         }
     }

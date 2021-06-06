@@ -24,5 +24,32 @@ namespace MeusLivrosAPI.Data.Services
             _context.Publicars.Add(_publicar);
             _context.SaveChanges();
         }
+
+
+
+        public PublicarWithLivrosAndAutorFJ GetPublicarData(int publicarId)
+        {
+            var _publicarData = _context.Publicars.Where(n => n.Id == publicarId)
+                .Select(n => new PublicarWithLivrosAndAutorFJ()
+            {
+                Nome = n.Nome,
+                LivrosAutors = n.Livros.Select(n => new LivrosAutorFJ()
+                {
+                    LivrosNome = n.Titulo,
+                    LivrosAutors = n.Livros_Autors.Select(n => n.Autor.NomeCompleto).ToList()
+                }).ToList()
+            }).FirstOrDefault();             
+            return _publicarData;
+        }
+
+        public void DeletePublicarById(int id)
+        {
+            var _publicar = _context.Publicars.FirstOrDefault(n => n.Id == id);
+            if (_publicar != null)
+            {
+                _context.Publicars.Remove(_publicar);
+                _context.SaveChanges();
+            }
+        }
     }
 }

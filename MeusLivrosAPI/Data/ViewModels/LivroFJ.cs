@@ -19,9 +19,8 @@ namespace MeusLivrosAPI.Data.ViewModels
 
         public string Genero { get; set; }
 
-        //public string Autor { get; set; }
-
         public string CoverUrl { get; set; }
+
 
         public int PublicarId { get; set; }
 
